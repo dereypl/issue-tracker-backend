@@ -14,7 +14,13 @@ const getIssues = catchAsync(async (req, res) => {
     res.send(result);
 });
 
+const updateIssue = catchAsync(async (req, res) => {
+    const issue = await issueService.updateIssueById(req.params.issueId, req.body);
+    res.send(issue);
+});
+
 module.exports = {
     createIssue,
-    getIssues
+    getIssues,
+    updateIssue
 };

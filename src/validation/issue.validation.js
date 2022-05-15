@@ -18,7 +18,22 @@ const getIssues = {
     }),
 };
 
+const updateIssue = {
+    params: Joi.object().keys({
+        issueId: Joi.string().hex().length(24).required()
+    }),
+    body: Joi.object()
+        .keys({
+            title: Joi.string(),
+            description: Joi.string(),
+            state: Joi.string().valid(...ISSUE_STATES),
+        })
+        .min(1),
+};
+
+
 module.exports = {
     createIssue,
-    getIssues
+    getIssues,
+    updateIssue
 };

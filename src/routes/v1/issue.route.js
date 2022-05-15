@@ -9,4 +9,9 @@ router
     .post(validate(issueValidation.createIssue), issueController.createIssue)
     .get(validate(issueValidation.getIssues), issueController.getIssues);
 
+
+router
+    .route('/:issueId')
+    .patch(validate(issueValidation.updateIssue), issueController.updateIssue)
+
 module.exports = router;
