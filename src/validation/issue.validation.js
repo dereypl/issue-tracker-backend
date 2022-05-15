@@ -9,6 +9,17 @@ const createIssue = {
     }),
 };
 
+const getIssues = {
+    query: Joi.object().keys({
+        title: Joi.string(),
+        description: Joi.string(),
+        state: Joi.string().valid(...ISSUE_STATES),
+        limit: Joi.number().integer(),
+        page: Joi.number().integer(),
+    }),
+};
+
 module.exports = {
     createIssue,
+    getIssues
 };

@@ -7,5 +7,6 @@ const router = express.Router();
 router
     .route('/')
     .post(validate(issueValidation.createIssue), issueController.createIssue)
+    .get(validate(issueValidation.getIssues), issueController.getIssues);
 
 module.exports = router;
