@@ -2,6 +2,7 @@ const express = require("express");
 const helmet = require('helmet');
 const cors = require('cors');
 const mongoose = require("mongoose");
+const routes = require("./routes/v1");
 require('dotenv').config()
 
 const app = express();
@@ -10,11 +11,9 @@ app.use(express.json());
 app.use(helmet());
 app.use(cors());
 
-app.get("/", function (req, res) {
-    res.send("hello")
-});
+app.use('/v1', routes);
 
-app.use((req, res, next) => {
+app.use((req, res) => {
     res.status(404).json({
         message: 'Not found'
     })

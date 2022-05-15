@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const {ISSUE_STATES, ISSUE_STATE} = require("./enum/issueState");
+const {ISSUE_STATES, ISSUE_STATE} = require("../enum/issueState");
 
 const issueSchema = mongoose.Schema(
     {
