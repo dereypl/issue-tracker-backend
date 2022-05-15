@@ -15,6 +15,7 @@ const getIssues = {
         state: Joi.string().valid(...ISSUE_STATES),
         limit: Joi.number().integer(),
         page: Joi.number().integer(),
+        sortBy: Joi.string(),
     }),
 };
 
