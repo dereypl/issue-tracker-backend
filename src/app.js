@@ -3,6 +3,7 @@ const helmet = require('helmet');
 const cors = require('cors');
 const mongoose = require("mongoose");
 const routes = require("./routes/v1");
+const {errorHandler} = require("./middleware/error");
 require('dotenv').config()
 
 const app = express();
@@ -18,6 +19,8 @@ app.use((req, res) => {
         message: 'Not found'
     })
 });
+
+app.use(errorHandler);
 
 mongoose.connect(process.env.DATABASE_URL).then(async () => {
     app.listen(process.env.PORT, () => console.log(`Server is up and running on port: ${process.env.PORT}`))
