@@ -14,8 +14,9 @@ const getIssues = catchAsync(async (req, res) => {
     res.send(result);
 });
 
-const updateIssue = catchAsync(async (req, res) => {
-    const issue = await issueService.updateIssueById(req.params.issueId, req.body);
+const updateIssue = catchAsync(async ({body, params: {issueId}}, res) => {
+    if (body.state) await issueService.validateStatusChange(issueId, body.state)
+    const issue = await issueService.updateIssueById(issueId, body);
     res.send(issue);
 });
 

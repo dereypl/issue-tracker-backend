@@ -6,16 +6,22 @@ const createIssue = async (issueBody) => Issue.create({...issueBody, state: ISSU
 const queryIssues = async (filter, options) => Issue.paginate(filter, options);
 
 const updateIssueById = async (issueId, updateBody) => {
-    const issue = await Issue.findById(issueId);
-    if (!issue) throw new ApiError(404, 'Issue not found');
-
-    Object.assign(issue, updateBody);
-    await issue.save();
-    return issue;
+    const issue = await Issue.findByIdAndUpdate(issueId, updateBody, {new: true});
+    if (issue) return issue
+    else throw new ApiError(404, 'Issue not found');
 };
+
+const validateStatusChange = async (issueId, nextState) => {
+    const isStateChangePossible = await Issue.checkIsStateChangePossible(issueId, nextState)
+
+    if (!isStateChangePossible) {
+        throw new ApiError(400, `Current state cannot be changed to: ${nextState}`);
+    }
+}
 
 module.exports = {
     createIssue,
     queryIssues,
-    updateIssueById
+    updateIssueById,
+    validateStatusChange
 };
