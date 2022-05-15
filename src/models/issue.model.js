@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const {ISSUE_STATES, ISSUE_STATE} = require("../enum/issueState");
+const {paginate} = require("./plugins");
 
 const issueSchema = mongoose.Schema(
     {
@@ -22,6 +23,8 @@ const issueSchema = mongoose.Schema(
         timestamps: true,
     }
 );
+
+issueSchema.plugin(paginate);
 
 const Issue = mongoose.model('Issue', issueSchema);
 
